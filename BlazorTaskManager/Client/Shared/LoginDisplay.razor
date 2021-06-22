@@ -1,12 +1,13 @@
 ﻿@using Microsoft.AspNetCore.Components.Authorization
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using BlazorTaskManager.Client.Pages
 
 @inject NavigationManager Navigation
 @inject SignOutSessionStateManager SignOutManager
 
 <AuthorizeView>
     <Authorized>
-        <a href="authentication/profile"><BlazorTaskManager.Client.Pages.Greating></BlazorTaskManager.Client.Pages.Greating>, @context.User.Identity.Name!</a>
+        <a href="authentication/profile"><Greating></Greating>, @context.User.Identity.Name!</a>
         <button class="nav-link btn btn-link" @onclick="BeginSignOut">Log out</button>
     </Authorized>
     <NotAuthorized>

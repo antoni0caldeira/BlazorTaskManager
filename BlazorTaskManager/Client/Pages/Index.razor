@@ -1,6 +1,15 @@
 ﻿@page "/"
 
-<h1></h1>
-<Greating></Greating>
-Welcome to your new app.
+<h1>
+    <Greating></Greating>
+</h1>
+
+<AuthorizeView>
+    <Authorized>
+        Welcome to your new app.
+    </Authorized>
+    <NotAuthorized>
+        <a href="authentication/login">Log in</a>
+    </NotAuthorized>
+</AuthorizeView>
 <SurveyPrompt Title="How is Blazor working for you?" />
