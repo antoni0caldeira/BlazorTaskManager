@@ -10,10 +10,10 @@
         <a href="authentication/profile"><Greating></Greating>, @context.User.Identity.Name!</a>
         <button class="nav-link btn btn-link" @onclick="BeginSignOut">Log out</button>
     </Authorized>
-    <NotAuthorized>
+    @*<NotAuthorized>
         <a href="authentication/register">Register</a>
         <a href="authentication/login">Log in</a>
-    </NotAuthorized>
+    </NotAuthorized>*@
 </AuthorizeView>
 
 @code{
