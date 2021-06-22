@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31410.357
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorTaskManager.Server", "BlazorTaskManager\Server\BlazorTaskManager.Server.csproj", "{F8E48D4F-AA56-4560-BFB2-C29BD5A0A8FF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorTaskManager.Server", "BlazorTaskManager\Server\BlazorTaskManager.Server.csproj", "{F8E48D4F-AA56-4560-BFB2-C29BD5A0A8FF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorTaskManager.Client", "BlazorTaskManager\Client\BlazorTaskManager.Client.csproj", "{814799CF-B3B9-41DC-9323-8F6ABD256C11}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorTaskManager.Client", "BlazorTaskManager\Client\BlazorTaskManager.Client.csproj", "{814799CF-B3B9-41DC-9323-8F6ABD256C11}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorTaskManager.Shared", "BlazorTaskManager\Shared\BlazorTaskManager.Shared.csproj", "{0632A1A1-F583-498B-BCEC-40A2BAF5AEF9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorTaskManager.Shared", "BlazorTaskManager\Shared\BlazorTaskManager.Shared.csproj", "{0632A1A1-F583-498B-BCEC-40A2BAF5AEF9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
