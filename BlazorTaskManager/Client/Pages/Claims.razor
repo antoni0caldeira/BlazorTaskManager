@@ -1,0 +1,13 @@
+﻿@page "/claims"
+
+<AuthorizeView>
+    <Authorized>
+        <ul>
+            @foreach (var claim in context.User.Claims)
+            {
+            <li> <b>@claim.Type</b>  <b>@claim.Value</b></li>
+            }
+        </ul>
+    </Authorized>
+</AuthorizeView>
+
