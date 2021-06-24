@@ -1,9 +1,15 @@
 ﻿@inject NavigationManager Navigation
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication
-@code {
+
+<div>
+    Landing page...<br />
+    <a href="/authentication/Login">Login</a>
+</div>
+
+@*@code {
     protected override void OnInitialized()
     {
         Navigation.NavigateTo(
             $"authentication/login?returnUrl={Uri.EscapeDataString(Navigation.Uri)}");
     }
-}
+}*@

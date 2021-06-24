@@ -1,11 +1,8 @@
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace TaskManager
@@ -22,15 +19,6 @@ namespace TaskManager
             builder.Services.AddOidcAuthentication(options =>
             {
                 builder.Configuration.Bind("GoogleAuth", options.ProviderOptions);
-            });
-
-            builder.Services.AddCors(options =>
-            {
-                options.AddDefaultPolicy(builder =>
-                builder.AllowAnyOrigin()
-                       .AllowCredentials()
-                       .AllowAnyMethod()
-                       .AllowAnyHeader());
             });
 
             await builder.Build().RunAsync();
