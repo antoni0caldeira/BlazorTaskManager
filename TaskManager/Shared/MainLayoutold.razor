@@ -1,0 +1,41 @@
+﻿@using System.Security.Claims
+@inherits LayoutComponentBase
+@inject NavigationManager NavigationManager
+
+<div class="page">
+
+    @if (user !=null && user.Identity.IsAuthenticated)
+    {
+        <div class="sidebar">
+            <NavMenu />
+        </div>
+
+
+        <div class="main">
+            <div class="top-row px-4">
+                <a href="http://blazor.net" target="_blank" class="ml-md-auto">About</a>
+            </div>
+
+            <div class="content px-4">
+                @Body
+            </div>
+        </div>
+    }
+    else
+    {
+        @Body
+    }
+</div>
+
+
+@code{
+    private ClaimsPrincipal user;
+
+    [CascadingParameter] protected Task<AuthenticationState> AuthStat { get; set; }
+
+    public override async Task SetParametersAsync(ParameterView parameters)
+    {
+        user = (await AuthStat).User;
+        await base.SetParametersAsync(parameters);
+    }
+}

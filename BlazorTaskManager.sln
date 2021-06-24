@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorTaskManager.Client", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorTaskManager.Shared", "BlazorTaskManager\Shared\BlazorTaskManager.Shared.csproj", "{0632A1A1-F583-498B-BCEC-40A2BAF5AEF9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskManager", "TaskManager\TaskManager.csproj", "{452E1A27-A291-4C2F-A489-D535867F448A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskManager", "TaskManager\TaskManager.csproj", "{452E1A27-A291-4C2F-A489-D535867F448A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

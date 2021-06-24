@@ -1,0 +1,16 @@
+﻿@page "/Picture"
+
+<AuthorizeView>
+    <Authorized>
+        
+            @foreach (var claim in context.User.Claims)
+            {
+                if (claim.Type == "picture")
+                {
+            <img style="border-radius: 50%; margin: 10px;" src="@claim.Value" alt="profile picture" width="25" height="25">
+                }
+            }
+        
+    </Authorized>
+</AuthorizeView>
+

@@ -1,11 +1,13 @@
 ﻿@using Microsoft.AspNetCore.Components.Authorization
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using TaskManager.Pages
 @inject NavigationManager Navigation
 @inject SignOutSessionStateManager SignOutManager
 
 <AuthorizeView>
     <Authorized>
-        Hello, @context.User.Identity.Name!
+        Hello, <div><UserName></UserName></div> @*@context.User.Identity.Name!*@
+        <div><UserPicture></UserPicture></div>
         <button class="nav-link btn btn-link" @onclick="BeginSignOut">
             Log out
         </button>
@@ -20,5 +22,6 @@
     {
         await SignOutManager.SetSignOutState();
         Navigation.NavigateTo("authentication/logout");
+
     }
 }

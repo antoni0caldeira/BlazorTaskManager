@@ -1,41 +1,28 @@
-﻿@using System.Security.Claims
-@inherits LayoutComponentBase
-@inject NavigationManager NavigationManager
+﻿@inherits LayoutComponentBase
 
-<div class="page">
-
-    @if (user !=null && user.Identity.IsAuthenticated)
-    {
-        <div class="sidebar">
-            <NavMenu />
-        </div>
-
-
-        <div class="main">
-            <div class="top-row px-4">
-                <a href="http://blazor.net" target="_blank" class="ml-md-auto">About</a>
+<AuthorizeView>
+    <Authorized>
+        <div class="page">
+            <div class="sidebar">
+                <NavMenu />
             </div>
 
-            <div class="content px-4">
-                @Body
+            <div class="main">
+                <div class="top-row px-4 auth">
+                    <LoginDisplay />
+                    <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
+                </div>
+
+                <div class="content px-4">
+                    @Body
+                </div>
             </div>
         </div>
-    }
-    else
-    {
+    </Authorized>
+    <NotAuthorized>
         @Body
-    }
-</div>
+    </NotAuthorized>
+</AuthorizeView>
 
 
-@code{
-    private ClaimsPrincipal user;
 
-    [CascadingParameter] protected Task<AuthenticationState> AuthStat { get; set; }
-
-    public override async Task SetParametersAsync(ParameterView parameters)
-    {
-        user = (await AuthStat).User;
-        await base.SetParametersAsync(parameters);
-    }
-}

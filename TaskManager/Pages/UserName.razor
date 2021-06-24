@@ -1,0 +1,15 @@
+﻿@page "/UserName"
+
+<AuthorizeView>
+    <Authorized>
+
+        @foreach (var claim in context.User.Claims)
+        {
+            if (claim.Type == "given_name")
+            {
+                <span>@claim.Value</span> 
+            }
+        }
+
+    </Authorized>
+</AuthorizeView>
