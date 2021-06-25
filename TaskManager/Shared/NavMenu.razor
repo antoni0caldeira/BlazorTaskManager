@@ -1,4 +1,10 @@
-﻿<div class="top-row pl-4 navbar navbar-dark">
+﻿@using Microsoft.AspNetCore.Components.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using TaskManager.Pages
+@inject NavigationManager Navigation
+@inject SignOutSessionStateManager SignOutManager
+
+<div class="top-row pl-4 navbar navbar-dark">
     <a class="navbar-brand" href="">TaskManager</a>
     <button class="navbar-toggler" @onclick="ToggleNavMenu">
         <span class="navbar-toggler-icon"></span>
@@ -27,6 +33,11 @@
                 <span class="oi oi-list-rich" aria-hidden="true"></span> User Claims
             </NavLink>
         </li>
+        <li class="nav-item px-3">
+            <button class="nav-link btn btn-link" @onclick="BeginSignOut">
+                Log out
+            </button>
+        </li>
     </ul>
 </div>
 
@@ -38,5 +49,11 @@
     private void ToggleNavMenu()
     {
         collapseNavMenu = !collapseNavMenu;
+    }
+    private async Task BeginSignOut(MouseEventArgs args)
+    {
+        await SignOutManager.SetSignOutState();
+        Navigation.NavigateTo("authentication/logout");
+
     }
 }
