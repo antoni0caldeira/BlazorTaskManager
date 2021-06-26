@@ -52,8 +52,10 @@
     }
     private async Task BeginSignOut(MouseEventArgs args)
     {
+        var t = await SignOutManager.ValidateSignOutState();
         await SignOutManager.SetSignOutState();
-        Navigation.NavigateTo("authentication/logout");
+        var t2 = await SignOutManager.ValidateSignOutState();
+        Navigation.NavigateTo("/logout");
 
     }
 }
