@@ -1,15 +1,30 @@
 ﻿@inject NavigationManager Navigation
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication
 
-<div>
-    Landing page...<br />
-    <a class="center" href="/authentication/Login">Login</a>
+<div class="container">
+    <div>
+        <img style="max-width:60%; height: auto" class="h-center" src="/img/blazortaskmanagerlogoblue.png" alt="manazor logo" />
+    </div>
+    <div>
+        <img class="h-center" src="/img/btn_google.png" alt="Login with google" @onclick="BeginSignIn" />
+    </div>
 </div>
 
-@*@code {
-    protected override void OnInitialized()
+@code{
+    private void BeginSignIn(MouseEventArgs args)
     {
-        Navigation.NavigateTo(
-            $"authentication/login?returnUrl={Uri.EscapeDataString(Navigation.Uri)}");
+
+        Navigation.NavigateTo("authentication/login");
+
     }
-}*@
+}
+
+
+@*@code {
+        protected override void OnInitialized()
+        {
+            Navigation.NavigateTo(
+                $"authentication/login?returnUrl={Uri.EscapeDataString(Navigation.Uri)}");
+        }
+    }
+    <a href="/authentication/Login">Login</a>*@

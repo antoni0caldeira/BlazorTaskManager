@@ -5,7 +5,7 @@
 @inject SignOutSessionStateManager SignOutManager
 
 <div class="top-row pl-4 navbar navbar-dark">
-    <a class="navbar-brand" href="">TaskManager</a>
+    <a class="navbar-brand" href="">manaZOR</a>
     <button class="navbar-toggler" @onclick="ToggleNavMenu">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -55,7 +55,7 @@
         var t = await SignOutManager.ValidateSignOutState();
         await SignOutManager.SetSignOutState();
         var t2 = await SignOutManager.ValidateSignOutState();
-        Navigation.NavigateTo("/logout");
+        Navigation.NavigateTo("authentication/logout");
 
     }
 }
