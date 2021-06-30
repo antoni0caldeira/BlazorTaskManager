@@ -17,7 +17,8 @@ namespace TaskManagerDAL.Data
         {
             modelBuilder.Entity<Task>()
                 .HasOne(b => b.Status)
-                .WithMany();
+                .WithMany(c => c.Tasks)
+                .HasForeignKey(p => p.Id);
         }
     }
 
