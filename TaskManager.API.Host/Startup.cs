@@ -27,10 +27,10 @@ namespace TaskManager.API.Host
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddControllers();
+            
 
             //CONTROLLERS
-            services.AddMvc().AddApplicationPart(typeof(TaskStatusController).Assembly);
+            //services.AddMvc().AddApplicationPart(typeof(TaskStatusController).Assembly);
 
             services.AddSwaggerGen(c =>
             {
@@ -45,6 +45,8 @@ namespace TaskManager.API.Host
 
             //Business
             services.AddScoped<ITaskStatusService, TaskStatusService>();
+
+            services.AddControllers();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
