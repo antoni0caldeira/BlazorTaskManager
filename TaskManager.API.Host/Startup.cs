@@ -42,9 +42,11 @@ namespace TaskManager.API.Host
 
             //DAL
             services.AddScoped<ITaskStatusRepository, TaskStatusRepository>();
+            services.AddScoped<ITaskRepository, TaskRepository>();
 
             //Business
             services.AddScoped<ITaskStatusService, TaskStatusService>();
+            services.AddScoped<ITaskService, TaskService>();
 
             services.AddControllers();
         }

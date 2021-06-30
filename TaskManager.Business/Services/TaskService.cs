@@ -17,7 +17,7 @@ namespace TaskManager.Business.Services
 
         public IEnumerable<TaskDto> GetAll()
         {
-            return taskRepository.GetAll().Select(x => new TaskDto
+            var result = taskRepository.GetAll().Select(x => new TaskDto
             {
                 Id = x.Id,
                 Title = x.Title,
@@ -28,6 +28,8 @@ namespace TaskManager.Business.Services
                 UserId = x.UserId
 
             });
+
+            return result;
         }
     }
 }

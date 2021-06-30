@@ -17,7 +17,8 @@ namespace TaskManagerDAL.Repositories
 
         IEnumerable<Task> ITaskRepository.GetAll()
         {
-            return taskManagerDbContext.Tasks.ToList();
+            var result = taskManagerDbContext.Tasks.ToList();
+            return result;
         }
     }
 }

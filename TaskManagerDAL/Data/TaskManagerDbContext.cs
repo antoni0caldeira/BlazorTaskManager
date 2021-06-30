@@ -1,9 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TaskManagerDAL.Models;
 
 namespace TaskManagerDAL.Data
@@ -15,10 +10,15 @@ namespace TaskManagerDAL.Data
 
         }
 
-        public DbSet<Models.Task> Tasks { get; set; }
-        public DbSet<Models.TaskStatus> TaskStatus { get; set; }
-    
+        public DbSet<Task> Tasks { get; set; }
+        public DbSet<TaskStatus> TaskStatus { get; set; }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Task>()
+                .HasOne(b => b.Status)
+                .WithMany();
+        }
     }
 
 }
