@@ -3,7 +3,7 @@ using TaskManagerDAL.Models;
 
 namespace TaskManager.Business.Dtos
 {
-    class TaskDto
+    public class TaskDto
     {
         public int Id { get; set; }
 
