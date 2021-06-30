@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using TaskManagerDAL.Data;
+using TaskManagerDAL.Models;
 using TaskManagerDAL.Repositories.Interfaces;
 
 namespace TaskManagerDAL.Repositories
@@ -17,7 +17,7 @@ namespace TaskManagerDAL.Repositories
 
         IEnumerable<Task> ITaskRepository.GetAll()
         {
-            return (IEnumerable<Task>)taskManagerDbContext.Tasks.ToList();
+            return taskManagerDbContext.Tasks.ToList();
         }
     }
 }
