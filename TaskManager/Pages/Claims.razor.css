@@ -1,0 +1,16 @@
+﻿.pending {
+    width: 22rem;
+    border: 2px solid yellow;
+}
+.inprogress {
+    width: 22rem;
+    border: 2px solid blue;
+}
+.done {
+    width: 22rem;
+    border: 2px solid green;
+}
+.late {
+    width: 22rem;
+    border: 2px solid darkred;
+}

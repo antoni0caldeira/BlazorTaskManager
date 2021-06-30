@@ -1,6 +1,6 @@
 using System;
 
-namespace TaskManager.API
+namespace TaskManager.API.Host
 {
     public class WeatherForecast
     {

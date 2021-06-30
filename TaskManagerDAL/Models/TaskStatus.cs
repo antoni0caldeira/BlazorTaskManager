@@ -5,15 +5,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TaskManager.API.Models
+namespace TaskManagerDAL.Models
 {
-    public class Status
+    public class TaskStatus
     {
         [Key]
         public int Id { get; set; }
+
         [Required]
         public string Name { get; set; }
-
-        public IEnumerable<Status> Statues { get; set; }
     }
 }

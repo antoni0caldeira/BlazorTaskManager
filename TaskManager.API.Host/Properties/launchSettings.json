@@ -17,7 +17,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "TaskManager.API": {
+    "TaskManager.API.Host": {
       "commandName": "Project",
       "dotnetRunMessages": "true",
       "launchBrowser": true,

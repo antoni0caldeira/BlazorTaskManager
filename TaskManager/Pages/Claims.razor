@@ -2,11 +2,34 @@
 
 <AuthorizeView>
     <Authorized>
-        <ul>
-            @foreach (var claim in context.User.Claims)
-            {
-            <li> <b>@claim.Type : @claim.Value</b></li>
-            }
-        </ul>
-    </Authorized>
+        <div class="container">
+            <div class="row">
+
+                @foreach (var claim in context.User.Claims)
+                {
+                <div class="col" >
+                    <div class="card late">
+                        <div class="card-body">
+                            <h3 class="card-title">@claim.Type</h3>
+                            <p class="card-text">@claim.Value</p>
+                            <button class="btn btn-outline-primary btn-sm" @onclick="Edit">Edit</button>
+                        </div>
+                    </div>
+                </div>
+                        }
+                    
+                </div>
+        </div>
+
+                    
+
+</Authorized>
 </AuthorizeView>
+@code {
+    
+
+    private void Edit()
+    {
+        Console.WriteLine("It works fine!");
+    }
+}

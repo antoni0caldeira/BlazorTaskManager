@@ -5,29 +5,32 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TaskManager.API.Models
+namespace TaskManagerDAL.Models
 {
     public class Task
     {
         [Key]
         public int Id { get; set; }
+
         [Required]
         [MaxLength(30)]
         public string Title { get; set; }
+
         [MaxLength(200)]
         public string Description { get; set; }
+
         [Required]
         [Display(Name = "Start Date")]
-        public DateTime StartDate { get; set; }
+        public DateTimeOffset StartDate { get; set; }
+
         [Required]
         [Display(Name = "End Date")]
-        public DateTime EndDate { get; set; }
+        public DateTimeOffset EndDate { get; set; }
 
-        public int TaskStatusId { get; set; }
-        public TaskStatus TaskStatus { get; set; }
-        
+        [Required]
+        public TaskStatus Status { get; set; }
+
+        [Required]
         public int UserId { get; set; }
-
-        public IEnumerable<Task> Tasks  { get; set; }
     }
 }
