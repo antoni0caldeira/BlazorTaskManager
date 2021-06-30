@@ -3,6 +3,7 @@ using TaskManager.Business.Dtos;
 using TaskManager.Business.Services.Interfaces;
 using TaskManagerDAL.Repositories.Interfaces;
 using System.Linq;
+using TaskManagerDAL.Models;
 
 namespace TaskManager.Business.Services
 {
@@ -24,12 +25,17 @@ namespace TaskManager.Business.Services
                 Description = x.Description,
                 StartDate = x.StartDate,
                 EndDate = x.EndDate,
-                Status = x.Status,
+                TaskStatus = x.TaskStatus,
                 UserId = x.UserId
 
             });
 
             return result;
+        }
+
+        public Task GetTaskById(int taskId)
+        {
+            return taskRepository.GetTaskById(taskId);
         }
     }
 }

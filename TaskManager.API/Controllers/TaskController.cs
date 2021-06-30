@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using TaskManager.Business.Dtos;
 using TaskManager.Business.Services.Interfaces;
+using TaskManagerDAL.Models;
 
 namespace TaskManager.API.Controllers
 {
@@ -20,6 +21,12 @@ namespace TaskManager.API.Controllers
         public IEnumerable<TaskDto> GetAll()
         {
             return taskService.GetAll();
+        }
+
+        [HttpGet("{id}")]
+        public  Task GetTaskById(int id)
+        {
+            return taskService.GetTaskById(id);
         }
     }
 }

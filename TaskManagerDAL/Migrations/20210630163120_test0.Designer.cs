@@ -10,8 +10,8 @@ using TaskManagerDAL.Data;
 namespace TaskManagerDAL.Migrations
 {
     [DbContext(typeof(TaskManagerDbContext))]
-    [Migration("20210629155136_initial")]
-    partial class initial
+    [Migration("20210630163120_test0")]
+    partial class test0
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -38,7 +38,7 @@ namespace TaskManagerDAL.Migrations
                     b.Property<DateTimeOffset>("StartDate")
                         .HasColumnType("datetimeoffset");
 
-                    b.Property<int?>("StatusId")
+                    b.Property<int>("TaskStatusId")
                         .HasColumnType("int");
 
                     b.Property<string>("Title")
@@ -51,7 +51,7 @@ namespace TaskManagerDAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("StatusId");
+                    b.HasIndex("TaskStatusId");
 
                     b.ToTable("Tasks");
                 });
@@ -74,11 +74,18 @@ namespace TaskManagerDAL.Migrations
 
             modelBuilder.Entity("TaskManagerDAL.Models.Task", b =>
                 {
-                    b.HasOne("TaskManagerDAL.Models.TaskStatus", "Status")
-                        .WithMany()
-                        .HasForeignKey("StatusId");
+                    b.HasOne("TaskManagerDAL.Models.TaskStatus", "TaskStatus")
+                        .WithMany("Tasks")
+                        .HasForeignKey("TaskStatusId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("Status");
+                    b.Navigation("TaskStatus");
+                });
+
+            modelBuilder.Entity("TaskManagerDAL.Models.TaskStatus", b =>
+                {
+                    b.Navigation("Tasks");
                 });
 #pragma warning restore 612, 618
         }

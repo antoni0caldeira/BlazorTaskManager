@@ -20,5 +20,9 @@ namespace TaskManagerDAL.Repositories
             var result = taskManagerDbContext.Tasks.ToList();
             return result;
         }
+        public Task GetTaskById(int taskId)
+        {
+            return taskManagerDbContext.Tasks.FirstOrDefault(c => c.Id == taskId);
+        }
     }
 }

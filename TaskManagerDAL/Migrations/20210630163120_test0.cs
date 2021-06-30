@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TaskManagerDAL.Migrations
 {
-    public partial class initial : Migration
+    public partial class test0 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -30,24 +30,24 @@ namespace TaskManagerDAL.Migrations
                     Description = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     StartDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     EndDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    StatusId = table.Column<int>(type: "int", nullable: true),
+                    TaskStatusId = table.Column<int>(type: "int", nullable: false),
                     UserId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Tasks", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Tasks_TaskStatus_StatusId",
-                        column: x => x.StatusId,
+                        name: "FK_Tasks_TaskStatus_TaskStatusId",
+                        column: x => x.TaskStatusId,
                         principalTable: "TaskStatus",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Tasks_StatusId",
+                name: "IX_Tasks_TaskStatusId",
                 table: "Tasks",
-                column: "StatusId");
+                column: "TaskStatusId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

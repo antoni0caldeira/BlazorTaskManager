@@ -1,16 +1,15 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using TaskManagerDAL.Data;
-using Microsoft.EntityFrameworkCore;
-using TaskManagerDAL.Repositories;
-using TaskManagerDAL.Repositories.Interfaces;
 using TaskManager.Business.Services;
 using TaskManager.Business.Services.Interfaces;
-using TaskManager.API.Controllers;
+using TaskManagerDAL.Data;
+using TaskManagerDAL.Repositories;
+using TaskManagerDAL.Repositories.Interfaces;
 
 namespace TaskManager.API.Host
 {

@@ -15,7 +15,9 @@ namespace TaskManager.Business.Dtos
 
         public DateTimeOffset EndDate { get; set; }
 
-        public TaskStatus Status { get; set; }
+        public int TaskStatusId { get; set; }
+
+        public TaskStatus TaskStatus { get; set; }
 
         public int UserId { get; set; }
     }

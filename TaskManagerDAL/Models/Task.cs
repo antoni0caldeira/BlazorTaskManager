@@ -28,7 +28,10 @@ namespace TaskManagerDAL.Models
         public DateTimeOffset EndDate { get; set; }
 
         [Required]
-        public TaskStatus Status { get; set; }
+        public int TaskStatusId { get; set; }
+        
+        [Required]
+        public TaskStatus TaskStatus { get; set; }
 
         [Required]
         public int UserId { get; set; }
