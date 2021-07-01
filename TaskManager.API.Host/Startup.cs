@@ -25,8 +25,7 @@ namespace TaskManager.API.Host
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
-            
+                       
 
             //CONTROLLERS
             //services.AddMvc().AddApplicationPart(typeof(TaskStatusController).Assembly);
