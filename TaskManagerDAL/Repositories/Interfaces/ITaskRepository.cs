@@ -7,5 +7,8 @@ namespace TaskManagerDAL.Repositories.Interfaces
     {
         IEnumerable<Models.Task> GetAll();
         Task GetTaskById(int taskId);
+        void DeleteTask(int taskId);
+        void AddTask(int taskId);
+        void UpdateTask(int taskId);
     }
 }

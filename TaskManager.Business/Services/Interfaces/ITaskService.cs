@@ -8,5 +8,6 @@ namespace TaskManager.Business.Services.Interfaces
     {
         public IEnumerable<TaskDto> GetAll();
         Task GetTaskById(int taskId);
+        void DeleteTask(int taskId);
     }
 }

@@ -24,5 +24,23 @@ namespace TaskManagerDAL.Repositories
         {
             return taskManagerDbContext.Tasks.FirstOrDefault(c => c.Id == taskId);
         }
+
+        public void DeleteTask(int taskId)
+        {
+            var task = taskManagerDbContext.Tasks.FirstOrDefault(c => c.Id == taskId);
+            if (task == null) return;
+
+            taskManagerDbContext.Tasks.Remove(task);
+            taskManagerDbContext.SaveChanges();
+        }
+
+        public void AddTask(int taskId)
+        {
+            return;
+        }
+        public void UpdateTask(int taskId)
+        {
+            return;
+        }
     }
 }

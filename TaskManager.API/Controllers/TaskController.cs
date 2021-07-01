@@ -28,5 +28,16 @@ namespace TaskManager.API.Controllers
         {
             return taskService.GetTaskById(id);
         }
+
+        [HttpDelete("{id}")]
+        public void DeleteTask(int id)
+        {
+            
+            var taskToDelete = taskService.GetTaskById(id);
+
+            taskService.DeleteTask(id);
+
+            return;
+        }
     }
 }
