@@ -35,12 +35,12 @@ namespace TaskManager.Business.Services
 
         public Task GetTaskById(int taskId)
         {
-            return taskRepository.GetTaskById(taskId);
+            return taskRepository.GetById(taskId);
         }
 
         public void DeleteTask(int taskId)
         {
-            taskRepository.DeleteTask(taskId);
+            taskRepository.Delete(taskId);
             return;
         }
     }
