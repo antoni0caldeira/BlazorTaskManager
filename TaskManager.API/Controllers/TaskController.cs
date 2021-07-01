@@ -24,18 +24,18 @@ namespace TaskManager.API.Controllers
         }
 
         [HttpGet("{id}")]
-        public  IActionResult GetTaskById(int id)
+        public  IActionResult GetById(int id)
         {
-            return Ok (taskService.GetTaskById(id));
+            return Ok (taskService.GetById(id));
         }
 
         [HttpDelete("{id}")]
-        public IActionResult DeleteTask(int id)
+        public IActionResult Delete(int id)
         {
             
-            var taskToDelete = taskService.GetTaskById(id);
+            var taskToDelete = taskService.GetById(id);
 
-            taskService.DeleteTask(id);
+            taskService.Delete(id);
 
             return NoContent();
         }
