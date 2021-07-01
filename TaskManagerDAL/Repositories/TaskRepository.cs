@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using TaskManagerDAL.Data;
 using TaskManagerDAL.Models;
 using TaskManagerDAL.Repositories.Interfaces;
@@ -15,32 +17,35 @@ namespace TaskManagerDAL.Repositories
             this.taskManagerDbContext = taskManagerDbContext;
         }
 
-        IEnumerable<Task> ITaskRepository.GetAll()
+        public Task Create(Task entity)
         {
-            var result = taskManagerDbContext.Tasks.ToList();
+            throw new System.NotImplementedException();
+        }
+
+        public void Delete(int entityId)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public IEnumerable<Task> GetAll()
+        {
+            var result = taskManagerDbContext.Tasks.Include(x => x.Status).ToList();
             return result;
         }
-        public Task GetTaskById(int taskId)
+
+        public Task GetById(int entityId)
         {
-            return taskManagerDbContext.Tasks.FirstOrDefault(c => c.Id == taskId);
+            return taskManagerDbContext.Tasks.FirstOrDefault(c => c.Id == entityId);
         }
 
-        public void DeleteTask(int taskId)
+        public Task Update(Task entity)
         {
-            var task = taskManagerDbContext.Tasks.FirstOrDefault(c => c.Id == taskId);
-            if (task == null) return;
-
-            taskManagerDbContext.Tasks.Remove(task);
-            taskManagerDbContext.SaveChanges();
+            throw new System.NotImplementedException();
         }
 
-        public void AddTask(int taskId)
+        public IEnumerable<Task> GetByFilters(int status, DateTimeOffset starDate, DateTimeOffset endDate)
         {
-            return;
-        }
-        public void UpdateTask(int taskId)
-        {
-            return;
+            throw new NotImplementedException();
         }
     }
 }

@@ -3,8 +3,7 @@ using TaskManagerDAL.Models;
 
 namespace TaskManagerDAL.Repositories.Interfaces
 {
-    public interface ITaskStatusRepository
+    public interface ITaskStatusRepository : IRepository<TaskStatus>
     {
-        IEnumerable<TaskStatus> GetAll();
     }
 }

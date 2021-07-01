@@ -1,14 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using TaskManagerDAL.Models;
 
 namespace TaskManagerDAL.Repositories.Interfaces
 {
-    public interface ITaskRepository
+    public interface ITaskRepository : IRepository<Task>
     {
-        IEnumerable<Models.Task> GetAll();
-        Task GetTaskById(int taskId);
-        void DeleteTask(int taskId);
-        void AddTask(int taskId);
-        void UpdateTask(int taskId);
+        IEnumerable<Task> GetByFilters(int status, DateTimeOffset starDate, DateTimeOffset endDate);
     }
 }

@@ -25,7 +25,7 @@ namespace TaskManager.Business.Services
                 Description = x.Description,
                 StartDate = x.StartDate,
                 EndDate = x.EndDate,
-                TaskStatus = x.TaskStatus,
+                Status = new TaskStatusDto { Id = x.Status.Id, Name = x.Status.Name},
                 UserId = x.UserId
 
             });
