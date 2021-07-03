@@ -19,12 +19,18 @@ namespace TaskManagerDAL.Repositories
 
         public Task Create(Task entity)
         {
-            throw new System.NotImplementedException();
+            var addedEntity = taskManagerDbContext.Tasks.Add(entity);
+            taskManagerDbContext.SaveChanges();
+            return addedEntity.Entity;
         }
 
         public void Delete(int entityId)
         {
-            throw new System.NotImplementedException();
+            var task = taskManagerDbContext.Tasks.FirstOrDefault(c => c.Id == entityId);
+            if (task == null) return;
+
+            taskManagerDbContext.Tasks.Remove(task);
+            taskManagerDbContext.SaveChanges();
         }
 
         public IEnumerable<Task> GetAll()
@@ -40,7 +46,24 @@ namespace TaskManagerDAL.Repositories
 
         public Task Update(Task entity)
         {
-            throw new System.NotImplementedException();
+            var task = taskManagerDbContext.Tasks.FirstOrDefault(e => e.Id == entity.Id);
+
+            if (task != null)
+            {
+                task.Id = entity.Id;
+                task.Title = entity.Title;
+                task.Description = entity.Description;
+                task.StartDate = entity.StartDate;
+                task.EndDate = entity.EndDate;
+                task.Status = entity.Status;
+                task.UserId = entity.UserId;
+
+                taskManagerDbContext.SaveChanges();
+
+                return task;
+            }
+
+            return null;
         }
 
         public IEnumerable<Task> GetByFilters(int status, DateTimeOffset starDate, DateTimeOffset endDate)

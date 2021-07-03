@@ -33,15 +33,63 @@ namespace TaskManager.Business.Services
             return result;
         }
 
-        public Task GetById(int taskId)
+        public TaskDto GetById(int taskId)
         {
-            return taskRepository.GetById(taskId);
+            TaskDto result = null;
+            Task task = taskRepository.GetById(taskId);
+            if(task != null)
+            {
+                result = new TaskDto
+                {
+                    Id = task.Id,
+                    Title = task.Title,
+                    Description = task.Description,
+                    StartDate = task.StartDate,
+                    EndDate = task.EndDate,
+                    Status = new TaskStatusDto { Id = task.Status.Id, Name = task.Status.Name },
+                    UserId = task.UserId
+                };
+            }
+            return result;
         }
 
         public void Delete(int taskId)
         {
             taskRepository.Delete(taskId);
             return;
+        }
+
+        public TaskDto Create(TaskDto taskDto)
+        {
+            TaskDto result = null;
+            if(taskDto != null)
+            {
+                Task taskToCreate = new Task
+                {
+                    Id = taskDto.Id,
+                    Title = taskDto.Title,
+                    Description = taskDto.Description,
+                    StartDate = taskDto.StartDate,
+                    EndDate = taskDto.EndDate,
+                    Status = { Id = taskDto.Status.Id, Name = taskDto.Status.Name },
+                    UserId = taskDto.UserId,
+                };
+
+                taskToCreate = taskRepository.Create(taskToCreate);
+
+                result = new TaskDto
+                {
+                    Id = taskDto.Id,
+                    Title = taskDto.Title,
+                    Description = taskDto.Description,
+                    StartDate = taskDto.StartDate,
+                    EndDate = taskDto.EndDate,
+                    Status = { Id = taskDto.Status.Id, Name = taskDto.Status.Name },
+                    UserId = taskDto.UserId
+                };
+            }
+                        
+            return result;
         }
     }
 }

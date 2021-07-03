@@ -7,7 +7,8 @@ namespace TaskManager.Business.Services.Interfaces
     public interface ITaskService
     {
         public IEnumerable<TaskDto> GetAll();
-        Task GetById(int taskId);
+        TaskDto GetById(int taskId);
         void Delete(int taskId);
+        TaskDto Create(TaskDto task);
     }
 }
