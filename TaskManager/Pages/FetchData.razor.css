@@ -1,0 +1,41 @@
+﻿.center {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%)
+}
+.colorful-3 {
+    width: 50px;
+    height: 50px;
+    display: grid;
+    --c: #CFF09E 25%,#79BD9A 0 50%,#0B486B 0 75%,#CFF09E 0;
+}
+
+    .colorful-3:before,
+    .colorful-3:after {
+        content: "";
+        background: linear-gradient( 90deg,var(--c)), linear-gradient(-90deg,var(--c));
+        background-size: 400% 52%;
+        background-repeat: no-repeat;
+        animation: co3 2s infinite;
+    }
+
+@keyframes co3 {
+    0% {
+        background-position: calc(3*100%/3) 0,calc(0*100%/3) 100%
+    }
+
+    23%,33% {
+        background-position: calc(2*100%/3) 0,calc(1*100%/3) 100%
+    }
+
+    56%,66% {
+        background-position: calc(1*100%/3) 0,calc(2*100%/3) 100%
+    }
+
+    90%,100% {
+        background-position: calc(0*100%/3) 0,calc(3*100%/3) 100%
+    }
+}

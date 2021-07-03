@@ -21,6 +21,12 @@ namespace TaskManager
                 builder.Configuration.Bind("GoogleAuth", options.ProviderOptions);
             });
 
+            //builder.Services.AddTransient(serviceType => new HttpClient
+            //{
+            //    BaseAddress = new Uri("http://localhost:44330/")
+            //}
+            //);
+
             await builder.Build().RunAsync();
         }
     }
