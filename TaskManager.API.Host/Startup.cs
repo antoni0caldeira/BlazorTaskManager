@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Net.Http.Headers;
 using Microsoft.OpenApi.Models;
 using TaskManager.Business.Services;
 using TaskManager.Business.Services.Interfaces;
@@ -64,6 +65,11 @@ namespace TaskManager.API.Host
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseCors(policy =>
+                policy.WithOrigins("http://localhost:5000", "https://localhost:5001")
+                .AllowAnyMethod()
+                .WithHeaders(HeaderNames.ContentType));
 
             app.UseEndpoints(endpoints =>
             {

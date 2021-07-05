@@ -5,7 +5,7 @@
 
 @if (tasks == null)
 {
-    <p><em>Loading...</em></p>
+    
     <div class="center colorful-3"></div>
 }
 else
@@ -30,11 +30,11 @@ else
 }
 
 @code {
-    private TaskUi[] tasks;
+    private IEnumerable<TaskUi> tasks;
 
     protected override async Task OnInitializedAsync()
     {
-        tasks = await Http.GetFromJsonAsync<TaskUi[]>("http://localhost:44330/task");
+        tasks = await Http.GetFromJsonAsync<IEnumerable<TaskUi>>("/task");
     }
 
     public class TaskUi
@@ -49,9 +49,8 @@ else
 
         public DateTimeOffset EndDate { get; set; }
 
-        public string Status { get; set; }
+        public int Status { get; set; }
 
         public int UserId { get; set; }
-    }
     }
 }
