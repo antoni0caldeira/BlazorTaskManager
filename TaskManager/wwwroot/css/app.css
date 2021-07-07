@@ -192,8 +192,8 @@ a, .btn-link {
 }
 
 .shapes-2 {
-    width: 150px;
-    height: 150px;
+    width: 50px;
+    height: 50px;
     color: #514b82;
     background: repeating-conic-gradient(from -47deg,#0000 0deg, currentColor 1deg 91deg,#0000 94deg 180deg);
     display: flex;

@@ -1,0 +1,29 @@
+﻿@page "/Hello"
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using Microsoft.AspNetCore.Components.Authorization
+@inject NavigationManager Navigation
+
+@Greatings() <a href="authentication/profile"><UserName></UserName></a>
+
+@code {
+
+    private int hour = DateTime.Now.Hour;
+    private string message;
+    private string Greatings()
+    {
+        if (hour >= 7 && hour < 12)
+        {
+            message = "Good morning ";
+        }
+        else if (hour >= 12 && hour < 20)
+        {
+            message = "Good afternoon ";
+        }
+        else
+        {
+            message = "Good evening ";
+        }
+        return message;
+    }
+
+}

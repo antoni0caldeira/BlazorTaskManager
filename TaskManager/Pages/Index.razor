@@ -1,7 +1,12 @@
 ﻿@using Microsoft.AspNetCore.Authorization
+@using TaskManager.Components
 @attribute [Authorize]
 @page "/"
 
 
 <div class="g-signin2" data-onsuccess="onSignIn"></div>
-@*<LandingPage></LandingPage>*@
+<Hello></Hello>
+<p>Today is  <Today></Today></p>
+<p>And you have somethings to do...</p>
+<LandingPage></LandingPage>
+

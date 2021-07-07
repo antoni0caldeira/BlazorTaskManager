@@ -1,5 +1,6 @@
-﻿@page "/landingpage"
+﻿@page "/LandingPage"
 @using TaskManager.Business.Dtos
+@using TaskManager.Components
 @inject HttpClient Http
 
     <AuthorizeView>
@@ -22,7 +23,7 @@
                             {
                                 <div class="card" style="box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); transition: 0.3s; padding: 10px; margin: 5px; width: 22rem;">
 
-                                    <p style="margin-bottom: -2rem; margin-left: 13rem; ">@item.Status.Name</p><span class="status @item.Status.Name.ToString()"></span>
+                                    <span class="status @item.Status.Name.ToString()" data-toggle="tooltip" data-placement="right" title="@item.Status.Name"></span>
                                     <h3 style="margin-top: -2rem;">@item.Title</h3>
                                     <p>Start: @item.StartDate.ToString("MM/dd/yyyy")</p>
                                     <p>End: @item.EndDate.ToString("MM/dd/yyyy")</p>
@@ -36,38 +37,40 @@
                 </div>
             </div>
 
+
+
         </Authorized>
     </AuthorizeView>
 
 
-                    @code {
+@code {
 
-                        private IEnumerable<TaskUi> tasks;
+    private IEnumerable<TaskUi> tasks;
 
-                        protected override async Task OnInitializedAsync()
-                        {
-                            tasks = await Http.GetFromJsonAsync<IEnumerable<TaskUi>>("/Task");
-                        }
+    protected override async Task OnInitializedAsync()
+    {
+        tasks = await Http.GetFromJsonAsync<IEnumerable<TaskUi>>("/Task");
+    }
 
-                        public class TaskUi
-                        {
-                            public int Id { get; set; }
+    public class TaskUi
+    {
+        public int Id { get; set; }
 
-                            public string Title { get; set; }
+        public string Title { get; set; }
 
-                            public string Description { get; set; }
+        public string Description { get; set; }
 
-                            public DateTimeOffset StartDate { get; set; }
+        public DateTimeOffset StartDate { get; set; }
 
-                            public DateTimeOffset EndDate { get; set; }
+        public DateTimeOffset EndDate { get; set; }
 
-                            public TaskStatusDto Status { get; set; }
+        public TaskStatusDto Status { get; set; }
 
-                            public int UserId { get; set; }
-                        }
+        public int UserId { get; set; }
+    }
 
-                        private void Edit()
-                        {
-                            Console.WriteLine("It works fine!");
-                        }
-                    }
+    private void Edit()
+    {
+        Console.WriteLine("It works fine!");
+    }
+}

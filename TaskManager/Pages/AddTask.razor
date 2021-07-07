@@ -1,0 +1,47 @@
+﻿@page "/AddTask"
+
+<div class="container">
+    <form>
+        <div class="form-group">
+            <label for="Title">Title</label>
+            <input class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="StartDate">Start</label>
+            <input type="date" id="start" name="start" value="@DateTime.Today.ToShortDateString()"/>
+        </div>
+        <div class="form-group">
+            <label for="StartDate">End</label>
+            <input type="date" id="end" name="end" value="@DateTime.Today.ToShortDateString()"/>
+        </div>
+
+        <div class="imput-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Description</span>
+            </div>
+            @*<label for="description">Description</label>*@
+            <textarea class="form-control" rows="3"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="status">Status</label>
+            <select class="form-control">
+                <option>Pending</option>
+                <option>In Progress</option>
+                <option>Done</option>
+                <option>Late</option>
+            </select>
+        </div>
+        <div class="form-group">
+            
+           
+        </div>
+
+    </form>
+</div>
+
+
+@code {
+
+
+}

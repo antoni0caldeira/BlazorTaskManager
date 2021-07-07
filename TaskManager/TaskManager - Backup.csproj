@@ -24,4 +24,8 @@
     <ProjectReference Include="..\TaskManager.Business\TaskManager.Business.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Components\" />
+  </ItemGroup>
+
 </Project>
