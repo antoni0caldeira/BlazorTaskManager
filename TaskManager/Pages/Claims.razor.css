@@ -21,8 +21,7 @@
     width: 25px;
     background-color: red;
     border-radius: 50%;
-    position: relative;
-    float: right;
+    align-self: flex-end;
 }
 .pt-PT {
     margin: 5px;
@@ -30,7 +29,7 @@
     width: 25px;
     background-color: greenyellow;
     border-radius: 50%;
-    display: inline-block;
+    align-self: flex-end;
 }
 
 .card {

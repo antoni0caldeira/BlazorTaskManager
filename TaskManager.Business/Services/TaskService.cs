@@ -79,13 +79,13 @@ namespace TaskManager.Business.Services
 
                 result = new TaskDto
                 {
-                    Id = taskDto.Id,
-                    Title = taskDto.Title,
-                    Description = taskDto.Description,
-                    StartDate = taskDto.StartDate,
-                    EndDate = taskDto.EndDate,
-                    Status = { Id = taskDto.Status.Id, Name = taskDto.Status.Name },
-                    UserId = taskDto.UserId
+                    Id = taskToCreate.Id,
+                    Title = taskToCreate.Title,
+                    Description = taskToCreate.Description,
+                    StartDate = taskToCreate.StartDate,
+                    EndDate = taskToCreate.EndDate,
+                    Status = { Id = taskToCreate.Status.Id, Name = taskToCreate.Status.Name },
+                    UserId = taskToCreate.UserId
                 };
             }
                         

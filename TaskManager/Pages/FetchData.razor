@@ -1,40 +1,44 @@
 ﻿@page "/fetchdata"
 @inject HttpClient Http
+@using TaskManager.Business.Dtos
 
-<p>Fetching data from the server.</p>
+<p>You have somethings to do...</p>
 
 @if (tasks == null)
 {
-    
+
     <div class="center colorful-3"></div>
 }
 else
 {
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Date</th>
-                <th>Title</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in tasks)
-            {
+        <table class="table">
+            <thead>
                 <tr>
-                    <td>@item.StartDate.ToString()</td>
-                    <td>@item.Title</td>
+                    <th>Date</th>
+                    <th>Title</th>
                 </tr>
-            }
-        </tbody>
-    </table>
-}
+            </thead>
+            <tbody>
+                @foreach (var item in tasks)
+                {
+                    <tr>
+                        <td>@item.Id</td>
+                        <td>@item.Title</td>
+                        <td>@item.Status.Id</td>
+                        <td>@item.Status.Name</td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
 
 @code {
     private IEnumerable<TaskUi> tasks;
 
     protected override async Task OnInitializedAsync()
     {
-        tasks = await Http.GetFromJsonAsync<IEnumerable<TaskUi>>("/task");
+        tasks = await Http.GetFromJsonAsync<IEnumerable<TaskUi>>("/Task");
     }
 
     public class TaskUi
@@ -49,7 +53,7 @@ else
 
         public DateTimeOffset EndDate { get; set; }
 
-        public int Status { get; set; }
+        public TaskStatusDto Status { get; set; }
 
         public int UserId { get; set; }
     }

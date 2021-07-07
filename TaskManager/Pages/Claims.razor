@@ -3,25 +3,28 @@
 <AuthorizeView>
     <Authorized>
         <div class="container">
-        <div class="row">
 
-        @foreach (var claim in context.User.Claims)
-        {
- 
-                <div class="card" style="box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); transition: 0.3s; padding: 10px; margin: 5px">
-                    
-                    <span class="@claim.Value.ToString()"></span>
-                    <h3>@claim.Type</h3>
+            <div class="row">
 
-                    <p>@claim.Value</p>
 
-                    <button class="btn btn-outline-primary btn-sm" @onclick="Edit">Edit</button>
-                </div>
-            
 
-        }
+                @foreach (var claim in context.User.Claims)
+                {
 
-        </div>
+                    <div class="card" style="box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); transition: 0.3s; padding: 10px; margin: 5px">
+
+                        <span class="@claim.Value.ToString()"></span>
+                        <h3>@claim.Type</h3>
+
+                        <p>@claim.Value</p>
+
+                        <button class="btn btn-outline-primary btn-sm" @onclick="Edit">Edit</button>
+                    </div>
+
+
+                }
+
+            </div>
         </div>
 
 

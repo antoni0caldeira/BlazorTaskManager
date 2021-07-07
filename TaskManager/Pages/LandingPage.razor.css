@@ -1,0 +1,30 @@
+﻿h1 {
+    color: blue;
+    font-style: italic;
+    text-shadow: 2px 2px 2px gray;
+}
+
+.status {
+    margin: 5px;
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+    align-self: flex-end;
+}
+
+.Done {
+    background-color: greenyellow;
+}
+
+.In {
+    background-color: yellow;
+}
+
+.Late {
+    background-color: red;
+}
+
+.Pending {
+    background-color: blue;
+}
+

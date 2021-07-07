@@ -23,7 +23,7 @@ namespace TaskManager
 
             builder.Services.AddTransient(serviceType => new HttpClient
             {
-                BaseAddress = new Uri("http://localhost:44330/")
+                BaseAddress = new Uri("https://localhost:44330/")
             }
             );
 
