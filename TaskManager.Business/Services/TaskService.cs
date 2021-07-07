@@ -37,7 +37,7 @@ namespace TaskManager.Business.Services
         {
             TaskDto result = null;
             Task task = taskRepository.GetById(taskId);
-            if(task != null)
+            if (task != null)
             {
                 result = new TaskDto
                 {
@@ -49,6 +49,7 @@ namespace TaskManager.Business.Services
                     Status = new TaskStatusDto { Id = task.Status.Id, Name = task.Status.Name },
                     UserId = task.UserId
                 };
+
             }
             return result;
         }

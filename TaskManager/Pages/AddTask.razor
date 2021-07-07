@@ -1,47 +1,74 @@
 ﻿@page "/AddTask"
+@page "/AddTask/{Id}"
+
+@inject HttpClient Http
+@using TaskManager.Business.Dtos
 
 <div class="container">
-    <form>
+    <EditForm Model="@task" @*OnValidSubmit="@HandleValidSubmit" OnInvalidSubmit="@HandleInvalidSubmit"*@>
         <div class="form-group">
             <label for="Title">Title</label>
-            <input class="form-control">
+            <InputText id="title" @bind="@task.Title"></InputText>
         </div>
-        <div class="form-group">
+        @*<div class="form-group">
             <label for="StartDate">Start</label>
-            <input type="date" id="start" name="start" value="@DateTime.Today.ToShortDateString()"/>
+            <InputDate id="start" @bind="@task.StartDate"></InputDate>
         </div>
         <div class="form-group">
             <label for="StartDate">End</label>
-            <input type="date" id="end" name="end" value="@DateTime.Today.ToShortDateString()"/>
-        </div>
+            <InputDate id="start" @bind="@task.StartDate"></InputDate>
+        </div>*@
 
         <div class="imput-group">
             <div class="input-group-prepend">
                 <span class="input-group-text">Description</span>
             </div>
             @*<label for="description">Description</label>*@
-            <textarea class="form-control" rows="3"></textarea>
+            <InputTextArea @bind="@task.Description"></InputTextArea>
         </div>
 
         <div class="form-group">
             <label for="status">Status</label>
-            <select class="form-control">
-                <option>Pending</option>
-                <option>In Progress</option>
-                <option>Done</option>
-                <option>Late</option>
-            </select>
+            @*<InputSelect @bind="@task.Status.Name">
+                @foreach (var value in task.Status.Name)
+                {
+                    <option>@value</option>
+                }
+            </InputSelect>*@
         </div>
         <div class="form-group">
-            
-           
+
+
         </div>
 
-    </form>
+    </EditForm>
 </div>
 
 
 @code {
+    [Parameter]
+    public string Id { get; set; }
 
+    public TaskUi task { get; set; } = new TaskUi();
 
+    protected override async Task OnInitializedAsync()
+    {
+        task = await Http.GetFromJsonAsync<TaskUi>($"/Task/{Id}");
+    }
+    public class TaskUi
+    {
+        public int Id { get; set; }
+
+        public string Title { get; set; }
+
+        public string Description { get; set; }
+
+        public DateTimeOffset StartDate { get; set; }
+
+        public DateTimeOffset EndDate { get; set; }
+
+        public TaskStatusDto Status { get; set; }
+
+        public int UserId { get; set; }
+    }
 }
