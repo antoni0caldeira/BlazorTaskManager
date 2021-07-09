@@ -29,3 +29,16 @@
     background-color: blue;
 }
 
+.cardbody {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    padding: 10px;
+    margin: 5px;
+    width: 22rem;
+}
+
+p .wrap {
+    height: 50px;
+    text-overflow: clip;
+    overflow: auto;
+}
