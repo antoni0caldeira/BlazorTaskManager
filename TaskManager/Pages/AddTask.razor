@@ -5,42 +5,39 @@
 @using TaskManager.Business.Dtos
 
 <div class="container">
-    <EditForm Model="@task" @*OnValidSubmit="@HandleValidSubmit" OnInvalidSubmit="@HandleInvalidSubmit"*@>
+    <EditForm Model="@task">
         <div class="form-group">
             <label for="Title">Title</label>
-            <InputText id="title" @bind="@task.Title"></InputText>
+            <InputText id="title" @bind-Value="@task.Title"></InputText>
         </div>
-        @*<div class="form-group">
+        <div class="form-group">
             <label for="StartDate">Start</label>
-            <InputDate id="start" @bind="@task.StartDate"></InputDate>
+            <InputDate id="start" @bind-Value="@task.StartDate"></InputDate>
         </div>
         <div class="form-group">
             <label for="StartDate">End</label>
-            <InputDate id="start" @bind="@task.StartDate"></InputDate>
-        </div>*@
+            <InputDate id="end" @bind-Value="@task.StartDate"></InputDate>
+        </div>
 
         <div class="imput-group">
             <div class="input-group-prepend">
                 <span class="input-group-text">Description</span>
             </div>
             @*<label for="description">Description</label>*@
-            <InputTextArea @bind="@task.Description"></InputTextArea>
+            <InputTextArea @bind-Value="@task.Description"></InputTextArea>
         </div>
 
-        <div class="form-group">
+        @*<div class="form-group">
             <label for="status">Status</label>
-            @*<InputSelect @bind="@task.Status.Name">
-                @foreach (var value in task.Status.Name)
+            <InputSelect id="status" @bind-Value="@task.Status.Id">
+                @foreach (var status in taskStatus)
                 {
-                    <option>@value</option>
+                <option value="@status.Id">@status.Name</option>
                 }
-            </InputSelect>*@
-        </div>
+            </InputSelect>
+        </div>*@
         <div class="form-group">
-
-
         </div>
-
     </EditForm>
 </div>
 
@@ -50,11 +47,14 @@
     public string Id { get; set; }
 
     public TaskUi task { get; set; } = new TaskUi();
+    public IEnumerable<TaskStatusUi> taskStatus;
 
     protected override async Task OnInitializedAsync()
     {
         task = await Http.GetFromJsonAsync<TaskUi>($"/Task/{Id}");
+        taskStatus = await Http.GetFromJsonAsync< IEnumerable<TaskStatusUi>>("/TaskStatus");
     }
+
     public class TaskUi
     {
         public int Id { get; set; }
@@ -70,5 +70,12 @@
         public TaskStatusDto Status { get; set; }
 
         public int UserId { get; set; }
+    }
+
+    public class TaskStatusUi
+    {
+        public int Id { get; set; }
+
+        public string Name { get; set; }
     }
 }

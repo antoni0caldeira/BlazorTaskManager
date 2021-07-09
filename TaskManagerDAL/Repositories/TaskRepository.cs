@@ -41,7 +41,7 @@ namespace TaskManagerDAL.Repositories
 
         public Task GetById(int entityId)
         {
-            return taskManagerDbContext.Tasks.FirstOrDefault(c => c.Id == entityId);
+            return taskManagerDbContext.Tasks.Include(x => x.Status).FirstOrDefault(c => c.Id == entityId);
         }
 
         public Task Update(Task entity)

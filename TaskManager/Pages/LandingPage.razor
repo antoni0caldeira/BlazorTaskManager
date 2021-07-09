@@ -25,7 +25,7 @@
 
                     <ToolTip Text="@item.Status.Name.ToString()"><p class="status @item.Status.Name.ToString()"></p></ToolTip>
                     <h3>@item.Title</h3>
-                    <p>Start: @item.StartDate.ToString("MM/dd/yyyy")</p>
+                    <p>From: @item.StartDate.ToString("MM/dd/yyyy hh:mm") - To: @item.EndDate.ToString("MM/dd/yyyy hh:mm")</p>
                     <p>End: @item.EndDate.ToString("MM/dd/yyyy")</p>
                     <p>@item.Description</p>
                     <button class="btn btn-outline-primary btn-sm" @onclick="Edit">Edit</button>
