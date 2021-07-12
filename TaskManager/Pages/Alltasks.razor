@@ -1,4 +1,4 @@
-﻿@page "/fetchdata"
+﻿@page "/Alltasks"
 @inject HttpClient Http
 @using TaskManager.Business.Dtos
 
@@ -16,8 +16,12 @@ else
                 <tr>
                     <th>Id</th>
                     <th>Title</th>
-                    <th>Status.Id</th>
-                    <th>Status.Name</th>
+                    <th>Status Id</th>
+                    <th>Status Name</th>
+                    <th>Start</th>
+                    <th>End</th>
+                    <th>User Id</th>
+                    <th> </th>
                 </tr>
             </thead>
             <tbody>
@@ -28,7 +32,10 @@ else
                         <td>@item.Title</td>
                         <td>@item.Status.Id</td>
                         <td>@item.Status.Name</td>
-
+                        <td>@item.StartDate.ToString()</td>
+                        <td>@item.EndDate.ToString()</td>
+                        <td>@item.UserId</td>
+                        <td><a href="@($"AddTask/{item.Id}")" class="btn btn-outline-primary btn-sm">Edit</a></td>
                     </tr>
                 }
             </tbody>

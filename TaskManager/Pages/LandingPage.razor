@@ -24,14 +24,16 @@
 
                             if (@item.StartDate.DateTime.Day == DateTime.Today.Day || @item.Status.Name == "Late")
                             {
-                <div class="card cardbody"  style=" box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); transition: 0.3s; padding: 10px; margin: 5px; width: 23rem;">
+                <div class="card cardbody" style=" box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); transition: 0.3s; padding: 10px; margin: 5px; width: 23rem;">
 
                     <ToolTip Text="@item.Status.Name.ToString()"><p class="status @item.Status.Name.ToString()"></p></ToolTip>
+                    
                     <h3>@item.Title</h3>
-                    <p style="margin-bottom: 0;">From: @item.StartDate.ToString("MM/dd/yyyy hh:mm") - To: @item.EndDate.ToString("MM/dd/yyyy hh:mm")</p>
-                    <p>End: @item.EndDate.ToString("MM/dd/yyyy")</p>
+                    <p style="margin-bottom: 0;">Start: @item.StartDate.ToString("MM/dd/yyyy hh:mm")</p>
+                    <p>End: @item.EndDate.ToString("MM/dd/yyyy hh:mm")</p>
                     <p style="height: 50px; text-overflow: clip; overflow: auto;">@item.Description</p>
-                    <button class="btn btn-outline-primary btn-sm" @onclick="Edit">Edit</button>
+                    <a href="@($"AddTask/{item.Id}")" class="btn btn-outline-primary btn-sm stretched-link">Edit</a>
+
                 </div>
                             }
                         }
@@ -52,7 +54,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        tasks = await Http.GetFromJsonAsync<IEnumerable<TaskUi>>("/Task");
+        tasks = (await Http.GetFromJsonAsync<IEnumerable<TaskUi>>("/Task")).OrderBy(tasks => tasks.StartDate);
     }
 
     public class TaskUi

@@ -1,7 +1,6 @@
 ﻿.tooltip-wrapper {
     position: relative;
     display: inline-block;
-    /*border-bottom: 1px dotted black;*/
     cursor: help;
 }
 
@@ -10,8 +9,7 @@ span {
     position: absolute;
     width: 120px;
     bottom: 100%;
-    left: 50%;
-    /*margin-left: -10px;*/
+    left: 78%;
     background-color: #363636;
     color: #fff;
     text-align: center;

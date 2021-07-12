@@ -16,7 +16,7 @@
         </div>
         <div class="form-group">
             <label for="StartDate">End</label>
-            <InputDate id="end" @bind-Value="@task.StartDate"></InputDate>
+            <InputDate id="end" @bind-Value="@task.EndDate"></InputDate>
         </div>
 
         <div class="imput-group">
@@ -27,7 +27,7 @@
             <InputTextArea @bind-Value="@task.Description"></InputTextArea>
         </div>
 
-        @*<div class="form-group">
+        <div class="form-group">
             <label for="status">Status</label>
             <InputSelect id="status" @bind-Value="@task.Status.Id">
                 @foreach (var status in taskStatus)
@@ -35,7 +35,7 @@
                 <option value="@status.Id">@status.Name</option>
                 }
             </InputSelect>
-        </div>*@
+        </div>
         <div class="form-group">
         </div>
     </EditForm>
@@ -43,16 +43,24 @@
 
 
 @code {
-    [Parameter]
-    public string Id { get; set; }
+        [Parameter]
+        public string Id { get; set; }
 
-    public TaskUi task { get; set; } = new TaskUi();
-    public IEnumerable<TaskStatusUi> taskStatus;
+    public TaskUi task { get; set; } = new TaskUi 
+    { 
+        StartDate = DateTime.Now,
+        EndDate = DateTime.Now,
+        Status = new TaskStatusDto { Id = 1 } 
+    };
+    public IEnumerable<TaskStatusUi> taskStatus = new List<TaskStatusUi>();
 
     protected override async Task OnInitializedAsync()
     {
-        task = await Http.GetFromJsonAsync<TaskUi>($"/Task/{Id}");
-        taskStatus = await Http.GetFromJsonAsync< IEnumerable<TaskStatusUi>>("/TaskStatus");
+        if (!string.IsNullOrEmpty(Id))
+        {
+            task = await Http.GetFromJsonAsync<TaskUi>($"/Task/{Id}");
+        }
+        taskStatus = await Http.GetFromJsonAsync<IEnumerable<TaskStatusUi>>("/TaskStatus");
     }
 
     public class TaskUi

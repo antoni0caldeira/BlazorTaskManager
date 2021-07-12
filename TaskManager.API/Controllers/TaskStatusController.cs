@@ -21,5 +21,12 @@ namespace TaskManager.API.Controllers
         {
             return taskStatusService.GetAll();
         }
+
+        [HttpGet("{id}")]
+        public TaskStatusDto GetById(int id)
+        {
+            var taskStatusDto = taskStatusService.GetById(id);
+            return taskStatusDto;
+        }
     }
 }

@@ -46,7 +46,7 @@ namespace TaskManagerDAL.Repositories
 
         public Task Update(Task entity)
         {
-            var task = taskManagerDbContext.Tasks.FirstOrDefault(e => e.Id == entity.Id);
+            var task = taskManagerDbContext.Tasks.Include(x => x.Status).FirstOrDefault(e => e.Id == entity.Id);
 
             if (task != null)
             {
