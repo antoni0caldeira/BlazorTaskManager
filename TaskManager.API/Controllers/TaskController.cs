@@ -38,10 +38,18 @@ namespace TaskManager.API.Controllers
 
             return NoContent();
         }
+
         [HttpPost]
         public IActionResult Create(TaskDto taskDto)
         {
             taskService.Create(taskDto);
+            return Ok();
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult Update(int id, TaskDto taskDto)
+        {
+            taskService.Update(id, taskDto);
             return Ok();
         }
     }

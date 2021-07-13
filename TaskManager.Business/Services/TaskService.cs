@@ -10,10 +10,12 @@ namespace TaskManager.Business.Services
     public class TaskService : ITaskService
     {
         private ITaskRepository taskRepository;
+        private ITaskStatusRepository taskStatusRepository;
 
-        public TaskService(ITaskRepository taskRepository)
+        public TaskService(ITaskRepository taskRepository, ITaskStatusRepository taskStatusRepository)
         {
             this.taskRepository = taskRepository;
+            this.taskStatusRepository = taskStatusRepository;
         }
 
         public IEnumerable<TaskDto> GetAll()
@@ -90,6 +92,39 @@ namespace TaskManager.Business.Services
                 };
             }
                         
+            return result;
+        }
+
+        public TaskDto Update(int taskId, TaskDto taskDto)
+        {
+            TaskDto result = null;
+            if (taskDto != null)
+            {
+                TaskStatus status = taskStatusRepository.GetById(taskDto.Status.Id);
+                Task taskToUpdate = new Task
+                {
+                    Id = taskId,
+                    Title = taskDto.Title,
+                    Description = taskDto.Description,
+                    StartDate = taskDto.StartDate,
+                    EndDate = taskDto.EndDate,
+                    Status = status,
+                    UserId = taskDto.UserId,
+                };
+
+                taskToUpdate = taskRepository.Update(taskToUpdate);
+
+                result = new TaskDto
+                {
+                    Id = taskToUpdate.Id,
+                    Title = taskToUpdate.Title,
+                    Description = taskToUpdate.Description,
+                    StartDate = taskToUpdate.StartDate,
+                    EndDate = taskToUpdate.EndDate,
+                    Status = new TaskStatusDto{ Id = taskToUpdate.Status.Id, Name = taskToUpdate.Status.Name },
+                    UserId = taskToUpdate.UserId
+                };
+            }
             return result;
         }
     }

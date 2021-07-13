@@ -10,5 +10,6 @@ namespace TaskManager.Business.Services.Interfaces
         TaskDto GetById(int taskId);
         void Delete(int taskId);
         TaskDto Create(TaskDto task);
+        TaskDto Update(int taskId, TaskDto taskDto);
     }
 }
