@@ -2,55 +2,62 @@
 @page "/AddTask/{Id}"
 
 @inject HttpClient Http
+@inject NavigationManager Navigation
+
 @using TaskManager.Business.Dtos
 
+
 <div class="container">
-    <EditForm Model="@task">
-        <div class="form-group">
-            <label for="Title">Title</label>
-            <InputText id="title" @bind-Value="@task.Title"></InputText>
-        </div>
-        <div class="form-group">
-            <label for="StartDate">Start</label>
-            <InputDate id="start" @bind-Value="@task.StartDate"></InputDate>
-        </div>
-        <div class="form-group">
-            <label for="StartDate">End</label>
-            <InputDate id="end" @bind-Value="@task.EndDate"></InputDate>
-        </div>
-
-        <div class="imput-group">
-            <div class="input-group-prepend">
-                <span class="input-group-text">Description</span>
+    <form>
+        <EditForm Model="@task">
+            <div class="form-outline">
+                <label for="Title">Title</label>
+                <InputText id="title" @bind-Value="@task.Title"></InputText>
             </div>
-            @*<label for="description">Description</label>*@
-            <InputTextArea @bind-Value="@task.Description"></InputTextArea>
-        </div>
+            <div class="form-outline">
+                <label for="StartDate">Start</label>
+                <InputDate id="start" @bind-Value="@task.StartDate"></InputDate>
+            </div>
+            <div class="form-outline">
+                <label for="StartDate">End</label>
+                <InputDate id="end" @bind-Value="@task.EndDate"></InputDate>
+            </div>
 
-        <div class="form-group">
-            <label for="status">Status</label>
-            <InputSelect id="status" @bind-Value="@task.Status.Id">
-                @foreach (var status in taskStatus)
-                {
-                <option value="@status.Id">@status.Name</option>
-                }
-            </InputSelect>
-        </div>
-        <div class="form-group">
-        </div>
-    </EditForm>
+            <div class="imput-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Description</span>
+                </div>
+                <InputTextArea @bind-Value="@task.Description"></InputTextArea>
+            </div>
+
+            <div class="form-outline">
+                <label for="status">Status</label>
+                <InputSelect id="status" @bind-Value="@task.Status.Id">
+                    @foreach (var status in taskStatus)
+                    {
+                        <option value="@status.Id">@status.Name</option>
+                    }
+                </InputSelect>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary edit-btn">Save</button>
+                <a class="btn btn-danger" @onclick="@DeleteTask">Delete</a>
+            </div>
+        </EditForm>
+    </form>
 </div>
 
 
 @code {
-        [Parameter]
-        public string Id { get; set; }
 
-    public TaskUi task { get; set; } = new TaskUi 
-    { 
+    [Parameter]
+    public string Id { get; set; }
+
+    public TaskUi task { get; set; } = new TaskUi
+    {
         StartDate = DateTime.Now,
         EndDate = DateTime.Now,
-        Status = new TaskStatusDto { Id = 1 } 
+        Status = new TaskStatusDto { Id = 1 }
     };
     public IEnumerable<TaskStatusUi> taskStatus = new List<TaskStatusUi>();
 
@@ -85,5 +92,12 @@
         public int Id { get; set; }
 
         public string Name { get; set; }
+    }
+
+    protected async Task DeleteTask()
+    {
+        await Http.DeleteAsync(($"/Task/{Id}"));
+        Navigation.NavigateTo("/");
+
     }
 }

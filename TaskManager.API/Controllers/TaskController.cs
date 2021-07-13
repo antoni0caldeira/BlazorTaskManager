@@ -27,8 +27,6 @@ namespace TaskManager.API.Controllers
         public TaskDto GetById(int id)
         {
             var taskDto =  taskService.GetById(id);
-            //if (taskDto != null) return taskDto;
-            //return null;
             return taskDto;
         }
 
@@ -36,7 +34,6 @@ namespace TaskManager.API.Controllers
         public IActionResult Delete(int id)
         {
             
-            //taskService.GetById(id);
             taskService.Delete(id);
 
             return NoContent();
