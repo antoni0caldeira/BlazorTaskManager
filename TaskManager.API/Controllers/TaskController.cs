@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using TaskManager.Business.Dtos;
 using TaskManager.Business.Services.Interfaces;
@@ -35,22 +36,32 @@ namespace TaskManager.API.Controllers
         {
             
             taskService.Delete(id);
-
             return NoContent();
         }
 
         [HttpPost]
         public IActionResult Create(TaskDto taskDto)
         {
-            taskService.Create(taskDto);
-            return Ok();
+            var result = taskService.Create(taskDto);
+
+            if(result == null)
+            {
+                return new BadRequestResult();
+            }
+            return Ok(taskDto);
         }
 
         [HttpPut("{id}")]
         public IActionResult Update(int id, TaskDto taskDto)
         {
             taskService.Update(id, taskDto);
-            return Ok();
+            return Ok(taskDto);
         }
+
+    //    [HttpGet("{status}")]
+    //    public IEnumerable<TaskDto> getGetByFilters(int status, DateTimeOffset starDate, DateTimeOffset endDate)
+    //    {
+    //        return taskService.GetByFilters(status, starDate, endDate);
+    //    }
     }
 }

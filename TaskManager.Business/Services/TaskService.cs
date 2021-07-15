@@ -4,6 +4,7 @@ using TaskManager.Business.Services.Interfaces;
 using TaskManagerDAL.Repositories.Interfaces;
 using System.Linq;
 using TaskManagerDAL.Models;
+using System;
 
 namespace TaskManager.Business.Services
 {
@@ -67,14 +68,20 @@ namespace TaskManager.Business.Services
             TaskDto result = null;
             if(taskDto != null)
             {
+                TaskStatus status = taskStatusRepository.GetById(taskDto.Status.Id);
+                if (status == null)
+                {
+                    return null;
+                }
+
                 Task taskToCreate = new Task
                 {
-                    Id = taskDto.Id,
+                    //Id = taskDto.Id,
                     Title = taskDto.Title,
                     Description = taskDto.Description,
                     StartDate = taskDto.StartDate,
                     EndDate = taskDto.EndDate,
-                    Status = { Id = taskDto.Status.Id, Name = taskDto.Status.Name },
+                    Status = status,
                     UserId = taskDto.UserId,
                 };
 
@@ -87,7 +94,7 @@ namespace TaskManager.Business.Services
                     Description = taskToCreate.Description,
                     StartDate = taskToCreate.StartDate,
                     EndDate = taskToCreate.EndDate,
-                    Status = { Id = taskToCreate.Status.Id, Name = taskToCreate.Status.Name },
+                    Status = new TaskStatusDto { Id = taskToCreate.Status.Id, Name = taskToCreate.Status.Name },
                     UserId = taskToCreate.UserId
                 };
             }
@@ -127,5 +134,23 @@ namespace TaskManager.Business.Services
             }
             return result;
         }
+
+        public IEnumerable<TaskDto>GetByFilters(int status, DateTimeOffset starDate, DateTimeOffset endDate)
+        {
+            var result = taskRepository.GetByFilters(status, starDate, endDate).Select(x => new TaskDto
+            {
+                Id = x.Id,
+                Title = x.Title,
+                Description = x.Description,
+                StartDate = x.StartDate,
+                EndDate = x.EndDate,
+                Status = new TaskStatusDto { Id = x.Status.Id, Name = x.Status.Name },
+                UserId = x.UserId
+
+            });
+
+            return result;
+        }
     }
+    
 }

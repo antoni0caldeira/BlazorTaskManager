@@ -1,9 +1,25 @@
 ﻿@page "/Alltasks"
+
 @inject HttpClient Http
+
 @using TaskManager.Business.Dtos
 
+<div class="navbar">
+    <form class="form-inline">
+        <EditForm Model="@tasks" OnValidSubmit="@HandleValidSubmit" OnInvalidSubmit="@HandleInvalidSubmit">
 
+            <InputText id="status" @bind-Value="@status"></InputText>
 
+            <InputDate id="start" @bind-Value="@startDate"></InputDate>
+
+            <InputDate id="end" @bind-Value="@endDate"></InputDate>
+
+            <button class="btn btn-primary m-2 my-sm-0">Search</button>
+            <button class="btn btn-outline-primary m-2 my-sm-0">Reset</button>
+        </EditForm>
+    </form>
+</div>
+<div class="alert">@message</div>
 @if (tasks == null)
 {
 
@@ -35,7 +51,7 @@ else
                         <td>@item.StartDate.ToString()</td>
                         <td>@item.EndDate.ToString()</td>
                         <td>@item.UserId</td>
-                        <td><a href="@($"AddTask/{item.Id}")" class="btn btn-outline-primary btn-sm">Edit</a></td>
+                        <td><a href="@($"AddTask/{item.Id}")" class="btn btn-outline-primary @*stretched-link*@">Edit</a></td>
                     </tr>
                 }
             </tbody>
@@ -43,11 +59,19 @@ else
     }
 
 @code {
+
+
     private IEnumerable<TaskUi> tasks;
+
+    private string status= "Pending";
+    private DateTimeOffset startDate = DateTimeOffset.Now ;
+    private DateTimeOffset endDate = DateTimeOffset.Now;
+    private string message = "";
 
     protected override async Task OnInitializedAsync()
     {
-        tasks = await Http.GetFromJsonAsync<IEnumerable<TaskUi>>("/Task");
+
+        tasks = (await Http.GetFromJsonAsync<IEnumerable<TaskUi>>("/Task"));
     }
 
     public class TaskUi
@@ -66,4 +90,27 @@ else
 
         public int UserId { get; set; }
     }
+
+    public class TaskStatusUi
+    {
+        public int Id { get; set; }
+
+        public string Name { get; set; }
+    }
+
+    protected async Task HandleValidSubmit()
+    {
+
+        tasks = (await Http.GetFromJsonAsync<IEnumerable<TaskUi>>("/Task"))
+            .Where(c => c.Status.Name.Contains(status) && c.StartDate >= startDate && c.EndDate >= endDate)
+            .OrderBy(o => o.StartDate)
+            .ToList();
+    }
+
+    protected void HandleInvalidSubmit()
+    {
+        message = "There are some search errors. Please try again.";
+    }
+
+
 }

@@ -16,11 +16,9 @@ namespace TaskManagerDAL.Models
         public string Description { get; set; }
 
         [Required]
-        [Display(Name = "Start Date")]
         public DateTimeOffset StartDate { get; set; }
 
         [Required]
-        [Display(Name = "End Date")]
         public DateTimeOffset EndDate { get; set; }
 
         [Required]

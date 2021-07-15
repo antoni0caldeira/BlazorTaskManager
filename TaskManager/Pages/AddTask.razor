@@ -5,38 +5,60 @@
 @inject NavigationManager Navigation
 
 @using TaskManager.Business.Dtos
+@using System.Net.Http;
+@using System.Net.Http.Json;
+@using System.ComponentModel.DataAnnotations;
+
 
 
 <div class="container">
     <form>
-        <EditForm Model="@task">
-            <div class="imput-group">
+        <EditForm Model="@task" OnValidSubmit="@HandleValidSubmit" OnInvalidSubmit="@HandleInvalidSubmit">
+
+            @if (string.IsNullOrEmpty(Id))
+            {
+                <h2>New Task</h2>
+            }
+            else
+            {
+                <h2>Edit Task</h2>
+            }
+            <div class="alert">@Message</div>
+
+            <DataAnnotationsValidator />
+            <!--<ValidationSummary></ValidationSummary>--> <!--List of all validations errors-->
+            <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text">Title</span>
                 </div>
-                    <InputText id="title" @bind-Value="@task.Title"></InputText>
-            </div>
-                <div class="form-row">
-                    <div class="col">
-                        <label for="StartDate">Start</label>
-                        <InputDate type="datetime-local" id="start" @bind-Value="@task.StartDate"></InputDate>
-                    </div>
-                    <div class="col">
-                        <label for="StartDate">End</label>
-                        <InputDate type="datetime-local" id="end" @bind-Value="@task.EndDate"></InputDate>
-                    </div>
-                    <div class="col">
-                    </div>
-                    <div class="col">
-                    </div>
-                </div>
+                <InputText id="title" @bind-Value="@task.Title"></InputText>
+                <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => task.Title)" /><!--Field validation error-->
 
-                <div class="imput-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">Description</span>
-                    </div>
-                    <InputTextArea @bind-Value="@task.Description"></InputTextArea>
+            </div>
+            <div class="form-row">
+                <div class="col">
+                    <label for="StartDate">Start</label>
+                    <InputDate type="datetime-local" id="start" @bind-Value="@task.StartDate"></InputDate>
+                    <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => task.StartDate)" />
                 </div>
+                <div class="col">
+                    <label for="StartDate">End</label>
+                    <InputDate type="datetime-local" id="end" @bind-Value="@task.EndDate"></InputDate>
+                    <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => task.EndDate)" />
+
+                </div>
+                <div class="col">
+                </div>
+                <div class="col">
+                </div>
+            </div>
+
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Description</span>
+                </div>
+                <InputTextArea @bind-Value="@task.Description"></InputTextArea>
+
 
                 <div class="form-outline">
                     <label for="status">Status</label>
@@ -47,16 +69,24 @@
                         }
                     </InputSelect>
                 </div>
+            </div>
                 <div class="form-group">
-                    <button class="btn btn-primary edit-btn" @onclick="@UpdateTask">Update</button>
+                    <button type="submit" class="btn btn-primary edit-btn">Save</button>
+                    @if (@task.Id != 0)
+                    { 
                     <a class="btn btn-danger" @onclick="@DeleteTask">Delete</a>
+                    }
                 </div>
+
+
+
         </EditForm>
     </form>
 </div>
 
 
 @code {
+    protected string Message = string.Empty;
 
     [Parameter]
     public string Id { get; set; }
@@ -65,7 +95,8 @@
     {
         StartDate = DateTime.Now,
         EndDate = DateTime.Now,
-        Status = new TaskStatusDto { Id = 1 }
+        Status = new TaskStatusDto { Id = 1 },
+        UserId = 0
     };
     public IEnumerable<TaskStatusUi> taskStatus = new List<TaskStatusUi>();
 
@@ -82,14 +113,19 @@
     {
         public int Id { get; set; }
 
+        [Required(ErrorMessage = "Please insert a Title")]
+        [StringLength(30, ErrorMessage = "Title length can't exceed 30 characters.")]
         public string Title { get; set; }
 
         public string Description { get; set; }
 
+        [Required(ErrorMessage = "Please insert a start date")]
         public DateTimeOffset StartDate { get; set; }
 
+        [Required(ErrorMessage = "Please insert a end date")]
         public DateTimeOffset EndDate { get; set; }
 
+        [Required(ErrorMessage = "Please insert a status stamp")]
         public TaskStatusDto Status { get; set; }
 
         public int UserId { get; set; }
@@ -104,12 +140,76 @@
 
     protected async Task DeleteTask()
     {
-        await Http.DeleteAsync(($"/Task/{Id}"));
-        Navigation.NavigateTo("/");
+        var response = await Http.DeleteAsync(($"/Task/{Id}"));
 
-    }protected Task UpdateTask()
+        //switch (response.StatusCode)
+        //{
+        //    case System.Net.HttpStatusCode.OK:
+        //        Message = "Task deleted successfully.";
+        //        break;
+        //    case System.Net.HttpStatusCode.BadRequest:
+        //        Message = "Please verify the data.";
+        //        break;
+        //    default:
+        //        Message = "Something went wrong deleting the task. Please try again.";
+        //        break;
+        //}
+        Navigation.NavigateTo("/landingPage");
+
+    }
+
+    protected async Task NewTask()
     {
-        throw new System.NotImplementedException();
+        var response = await Http.PostAsJsonAsync<TaskUi>(($"/Task"), task);
 
+        switch (response.StatusCode)
+        {
+            case System.Net.HttpStatusCode.OK:
+                Message = "New task added successfully.";
+                break;
+            case System.Net.HttpStatusCode.BadRequest:
+                Message = "Please verify the data.";
+                break;
+            default:
+                Message = "Something went wrong adding the new task. Please try again.";
+                break;
+        }
+        StateHasChanged();
+    }
+
+    protected async Task UpdateTask()
+    {
+
+        var response = await Http.PutAsJsonAsync<TaskUi>(($"/Task/{Id}"), task);
+
+        switch (response.StatusCode)
+        {
+            case System.Net.HttpStatusCode.OK:
+                Message = "Task updaded successfully.";
+                break;
+            case System.Net.HttpStatusCode.BadRequest:
+                Message = "Please verify the data.";
+                break;
+            default:
+                Message = "Something went wrong updating the task. Please try again.";
+                break;
+        }
+        StateHasChanged();
+    }
+
+    protected async Task HandleValidSubmit()
+    {
+
+        Console.WriteLine(task.Id);
+        if (!string.IsNullOrEmpty(Id)) //This will be an update
+        {
+            await UpdateTask();
+        }
+        else await NewTask(); //This will be a new task
+    }
+
+    protected void HandleInvalidSubmit()
+    {
+        Message = "There are some validation errors. Please try again.";
     }
 }

@@ -68,7 +68,11 @@ namespace TaskManagerDAL.Repositories
 
         public IEnumerable<Task> GetByFilters(int status, DateTimeOffset starDate, DateTimeOffset endDate)
         {
-            throw new NotImplementedException();
+            return taskManagerDbContext.Tasks.Include(x => x.Status)
+                .Where(c => c.Status.Id == status && c.StartDate >= starDate && c.EndDate >= endDate)
+                .OrderBy(o => o.StartDate)
+                .ToList();
+
         }
     }
 }
